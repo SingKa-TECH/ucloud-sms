@@ -1,0 +1,21 @@
+{
+    "name": "singka/ucloud_sms",
+    "description": "ThinkPHP系列Ucloud的短信接口",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "shycomet",
+            "email": "shycomet@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php" : ">=5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "singka\\UcloudSms" : "src/"
+        }
+    }
+}
