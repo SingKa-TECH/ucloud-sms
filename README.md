@@ -10,27 +10,30 @@
 #### 使用说明
 
 
+```
+$conn = new UcloudApiClient(BASE_URL, PUBLIC_KEY, PRIVATE_KEY, PROJECT_ID);
+$params['Action'] = "SendUSMSMessage";
 
-> use Singka\UcloudSms\UcloudApiClient;
-> $conn = new UcloudApiClient(BASE_URL, PUBLIC_KEY, PRIVATE_KEY, PROJECT_ID);
-> $params['Action'] = "SendUSMSMessage";
-> 
-> //手机号码列表
-> $phones = explode("|", $argv[1]);
-> foreach($phones as $key => $val){
->     $params["PhoneNumbers.".$key] = $val;
-> }
-> 
-> //申请的签名
-> $params["SigContent"] = $argv[2];
-> 
-> //申请的模板ID
-> $params["TemplateId"] = $argv[3];
-> 
-> //模板参数列表
-> $templates = explode("|", $argv[4]);
-> foreach($templates as $key => $val) {
->     $params["TemplateParams.".$key] = $val;
-> }
-> 
-> print_r($response = $conn->get("/", $params));
+//群发
+$phones = array();
+foreach($phones as $key => $val){
+    $params["PhoneNumbers.".$key] = $val;
+}
+
+//单发
+$params["PhoneNumbers.0"] = $phone;
+
+$params["SigContent"] = '签名';
+
+$params["TemplateId"] = ’短信模板ID‘;
+
+//模板参数列表
+$templates = array();
+foreach($templates as $key => $val) {
+    $params["TemplateParams.".$key] = $val;
+}
+
+$response = $conn->get("/", $params);
+```
+#### 其他说明
+返回的相关错误码请查阅：https://docs.ucloud.cn/management_monitor/usms/error_code
