@@ -11,6 +11,10 @@
 
 
 ```
+//BASE_URL为API地址，默认为https://api.ucloud.cn
+//PUBLIC_KEY为公钥，可在Ucloud面板找到（console - API密钥 - 显示）
+//PRIVATE_KEY为私钥，可在Ucloud面板找到（console - API密钥 - 显示）
+//PROJECT_ID为项目ID，可从Ucloud面板dashbord获取
 $conn = new UcloudApiClient(BASE_URL, PUBLIC_KEY, PRIVATE_KEY, PROJECT_ID);
 $params['Action'] = "SendUSMSMessage";
 
