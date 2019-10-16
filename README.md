@@ -5,7 +5,7 @@
 
 #### 安装教程
 
-使用 `composer require singka/ucloud_sms:dev-master` 命令行安装即可。
+使用 `composer require singka/ucloud-sms:dev-master` 命令行安装即可。
 
 #### 使用说明
 
