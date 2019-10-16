@@ -1,5 +1,5 @@
 {
-    "name": "singka/ucloud_sms",
+    "name": "singka/ucloud-sms",
     "description": "ThinkPHP系列Ucloud的短信接口",
     "type": "library",
     "license": "MIT",
