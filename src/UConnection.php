@@ -8,7 +8,7 @@
 // +----------------------------------------------------------------------
 // | Author: ShyComet <shycomet@qq.com>
 // +----------------------------------------------------------------------
-namespace singka\UcloudSms;
+namespace Singka\UcloudSms;
 
 
 class UConnection{
