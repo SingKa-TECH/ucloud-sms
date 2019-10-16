@@ -14,17 +14,6 @@ use Singka\UcloudSms\UConnection;
 
 class UcloudApiClient {
 
-    function _verfy_ac($private_key, $params) {
-        ksort($params); 
-        $params_data = ""; 
-        foreach($params as $key => $value){
-            $params_data .= $key;
-            $params_data .= $value;
-        }   
-        $params_data .= $private_key;
-        return sha1($params_data);
-    }
-
     function __construct( $base_url, $public_key, $private_key, $project_id)
     {
         $this->conn = new UConnection($base_url);
@@ -36,24 +25,35 @@ class UcloudApiClient {
         }
     }
 
-    function get($api, $params){
-		$params["PublicKey"] = $this->public_key;
+    function _verfy_ac($private_key, $params) {
+        ksort($params);
+        $params_data = "";
+        foreach($params as $key => $value){
+            $params_data .= $key;
+            $params_data .= $value;
+        }
+        $params_data .= $private_key;
+        return sha1($params_data);
+    }
 
-		if ( isset($this->project_id) && !empty($this->project_id) )
-		{
-			$params["ProjectId"] = $this->project_id;
-		}
-        $params["Signature"] = _verfy_ac($this->private_key, $params);
+    function get($api, $params){
+        $params["PublicKey"] = $this->public_key;
+
+        if ( isset($this->project_id) && !empty($this->project_id) )
+        {
+            $params["ProjectId"] = $this->project_id;
+        }
+        $params["Signature"] = $this->_verfy_ac($this->private_key, $params);
         return $this->conn->get($api, $params);
     }
 
     function post($api, $params){
-		$params["PublicKey"] = $this->PublicKey;
-		if ( isset($this->project_id) && !empty($this->project_id) )
-		{
-			$params["ProjectId"] = $this->project_id;
-		}
-        $params["Signature"] = _verfy_ac($this->private_key, $params);
+        $params["PublicKey"] = $this->PublicKey;
+        if ( isset($this->project_id) && !empty($this->project_id) )
+        {
+            $params["ProjectId"] = $this->project_id;
+        }
+        $params["Signature"] = $this->_verfy_ac($this->private_key, $params);
         return $this->conn->post($api, $params);
     }
 }
