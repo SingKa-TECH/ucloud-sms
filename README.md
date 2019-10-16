@@ -10,7 +10,9 @@
 #### 使用说明
 
 
-```
+`
+use Singka\UcloudSms\UcloudApiClient;
+
 //BASE_URL为API地址，默认为https://api.ucloud.cn
 //PUBLIC_KEY为公钥，可在Ucloud面板找到（console - API密钥 - 显示）
 //PRIVATE_KEY为私钥，可在Ucloud面板找到（console - API密钥 - 显示）
@@ -38,6 +40,6 @@ foreach($templates as $key => $val) {
 }
 
 $response = $conn->get("/", $params);
-```
+`
 #### 其他说明
 返回的相关错误码请查阅：https://docs.ucloud.cn/management_monitor/usms/error_code
