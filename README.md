@@ -7,42 +7,57 @@
 
 使用 `composer require singka/ucloud-sms` 命令行安装即可。
 
-#### 使用说明
+安装完成后会自动生成 `config/usms.php` 配置文件，内容如下：
+
+```
+<?php
+return [
+    //API公钥 可在后台查找
+    'PUBLIC_KEY'   =>  '',
+    //API私钥 可在后台查找
+    'PRIVATE_KEY'  =>  '',
+    //项目ID 登录Ucloud后台可以查找
+    'PROJECT_ID'   =>  '',
+    //API通信地址，默认为https://api.ucloud.cn
+    'BASE_URL'     =>  'https://api.ucloud.cn',
+];
+```
+
+#### 使用示例
 
 
 ```
-use Singka\UcloudSms\UcloudApiClient;
+    <?php
+    namespace app\home\controller;
 
-//BASE_URL为API地址，默认为https://api.ucloud.cn
-//PUBLIC_KEY为公钥，可在Ucloud面板找到（console - API密钥 - 显示）
-//PRIVATE_KEY为私钥，可在Ucloud面板找到（console - API密钥 - 显示）
-//PROJECT_ID为项目ID，可从Ucloud面板dashbord获取
-$conn = new UcloudApiClient(BASE_URL, PUBLIC_KEY, PRIVATE_KEY, PROJECT_ID);
-$params['Action'] = "SendUSMSMessage";
+    use Singka\UcloudSms\UcloudApiClient;
 
-    public function usms_send($mobile,$TemplateId,$templates)
+    class Index
     {
-        $conn = new UcloudApiClient(Config::get('usms.BASE_URL'), Config::get('usms.PUBLIC_KEY'), Config::get('usms.PRIVATE_KEY'), Config::get('usms.PROJECT_ID'));
-        $params['Action'] = "SendUSMSMessage";
-        //判断$mobile是否为数组，如果是数组，就触发群发
-        if(is_array($mobile)){
-            foreach($mobile as $key => $val){
-                $params["PhoneNumbers.".$key] = $val;
+        public function usms_send($mobile,$TemplateId,$templates)
+        {
+            $conn = new UcloudApiClient(Config::get('usms.BASE_URL'), Config::get('usms.PUBLIC_KEY'), Config::get('usms.PRIVATE_KEY'), Config::get('usms.PROJECT_ID'));
+            $params['Action'] = "SendUSMSMessage";
+            //判断$mobile是否为数组，如果是数组，就触发群发
+            if(is_array($mobile)){
+                foreach($mobile as $key => $val){
+                    $params["PhoneNumbers.".$key] = $val;
+                }
+            }else{
+                $params['PhoneNumbers.0'] = $mobile;
             }
-        }else{
-            $params['PhoneNumbers.0'] = $mobile;
-        }
-        $params["SigContent"] = '胜家云';
-        $params["TemplateId"] = $TemplateId;
-        //$templates，如果是数组，就触发多个发送变量
-        if(is_array($templates)){
-            foreach($templates as $key => $val) {
-                $params["TemplateParams.".$key] = $val;
+            $params["SigContent"] = '胜家云';
+            $params["TemplateId"] = $TemplateId;
+            //$templates，如果是数组，就触发多个发送变量
+            if(is_array($templates)){
+                foreach($templates as $key => $val) {
+                    $params["TemplateParams.".$key] = $val;
+                }
+            }else{
+                $params["TemplateParams.0"] = $templates;
             }
-        }else{
-            $params["TemplateParams.0"] = $templates;
+            print_r($response = $conn->get("/", $params));
         }
-        print_r($response = $conn->get("/", $params));
     }
 ```
 

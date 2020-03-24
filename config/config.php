@@ -10,11 +10,11 @@
 // +----------------------------------------------------------------------
 return [
     //API秘钥之公钥 可在后台查找
-    'PUBLIC_KEY'   =>    '',
+    'PUBLIC_KEY'   =>  '',
     //API秘钥之私钥 可在后台查找
-    'PRIVATE_KEY'   =>    '',
+    'PRIVATE_KEY'  =>  '',
     //项目ID 登录Ucloud后台可以查找
-    'PROJECT_ID'      =>    '',
+    'PROJECT_ID'   =>  '',
     //API通信地址
-    'BASE_URL'        => 'https://api.ucloud.cn',
+    'BASE_URL'     =>  'https://api.ucloud.cn',
 ];
