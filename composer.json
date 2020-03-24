@@ -1,6 +1,6 @@
 {
     "name": "singka/ucloud-sms",
-    "description": "ThinkPHP系列Ucloud的短信接口",
+    "description": "ThinkPHP系列Ucloud的短信接口，支持ThinkPHP6、ThinkPHP5.1和ThinkPHP5.0",
     "type": "library",
     "license": "MIT",
     "authors": [
