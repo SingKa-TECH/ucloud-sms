@@ -20,26 +20,30 @@ use Singka\UcloudSms\UcloudApiClient;
 $conn = new UcloudApiClient(BASE_URL, PUBLIC_KEY, PRIVATE_KEY, PROJECT_ID);
 $params['Action'] = "SendUSMSMessage";
 
-//群发
-$phones = array();
-foreach($phones as $key => $val){
-    $params["PhoneNumbers.".$key] = $val;
-}
-
-//单发
-$params["PhoneNumbers.0"] = $phone;
-
-$params["SigContent"] = '签名';
-
-$params["TemplateId"] = ’短信模板ID‘;
-
-//模板参数列表
-$templates = array();
-foreach($templates as $key => $val) {
-    $params["TemplateParams.".$key] = $val;
-}
-
-$response = $conn->get("/", $params);
+    public function usms_send($mobile,$TemplateId,$templates)
+    {
+        $conn = new UcloudApiClient(Config::get('usms.BASE_URL'), Config::get('usms.PUBLIC_KEY'), Config::get('usms.PRIVATE_KEY'), Config::get('usms.PROJECT_ID'));
+        $params['Action'] = "SendUSMSMessage";
+        //判断$mobile是否为数组，如果是数组，就触发群发
+        if(is_array($mobile)){
+            foreach($mobile as $key => $val){
+                $params["PhoneNumbers.".$key] = $val;
+            }
+        }else{
+            $params['PhoneNumbers.0'] = $mobile;
+        }
+        $params["SigContent"] = '胜家云';
+        $params["TemplateId"] = $TemplateId;
+        //$templates，如果是数组，就触发多个发送变量
+        if(is_array($templates)){
+            foreach($templates as $key => $val) {
+                $params["TemplateParams.".$key] = $val;
+            }
+        }else{
+            $params["TemplateParams.0"] = $templates;
+        }
+        print_r($response = $conn->get("/", $params));
+    }
 ```
 
 #### 其他说明
