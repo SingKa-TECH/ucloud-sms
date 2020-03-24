@@ -20,7 +20,7 @@
     "extra": {
         "think": {
             "config": {
-                "auth": "src/config/usms.php"
+                "usms": "config/config.php"
             }
         }
     }
