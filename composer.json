@@ -16,5 +16,12 @@
         "psr-4": {
             "Singka\\UcloudSms\\" : "src/"
         }
+    },
+    "extra": {
+        "think": {
+            "config": {
+                "auth": "src/config/usms.php"
+            }
+        }
     }
 }
